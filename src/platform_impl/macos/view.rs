@@ -960,11 +960,18 @@ impl WinitView {
         let button = mouse_button(event);
 
         self.update_potentially_stale_modifiers(event);
+        let location = event.locationInWindow();
+
+        let position = crate::dpi::PhysicalPosition {
+            x: location.x as f64,
+            y: self.frame().size.height as f64 - location.y as f64,
+        };
 
         self.queue_event(WindowEvent::MouseInput {
             device_id: DEVICE_ID,
             state: button_state,
             button,
+            position,
             modifiers: event_mods(event),
         });
     }

@@ -435,6 +435,7 @@ pub enum WindowEvent<'a> {
         device_id: DeviceId,
         state: ElementState,
         button: MouseButton,
+        position: PhysicalPosition<f64>,
         #[deprecated = "Deprecated in favor of WindowEvent::ModifiersChanged"]
         modifiers: ModifiersState,
     },
@@ -606,11 +607,13 @@ impl Clone for WindowEvent<'static> {
                 device_id,
                 state,
                 button,
+                position,
                 modifiers,
             } => MouseInput {
                 device_id: *device_id,
                 state: *state,
                 button: *button,
+                position: *position,
                 modifiers: *modifiers,
             },
             TouchpadMagnify {
@@ -715,11 +718,13 @@ impl<'a> WindowEvent<'a> {
                 device_id,
                 state,
                 button,
+                position,
                 modifiers,
             } => Some(MouseInput {
                 device_id,
                 state,
                 button,
+                position,
                 modifiers,
             }),
             TouchpadMagnify {
